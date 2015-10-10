@@ -2,6 +2,13 @@
 A simple, flexible Docker image for MariaDB 10.0
 
 ## Create the image
+Pull the image from Docker Hub:
+```
+docker pull arccoza/docker-mariadb
+```
+
+or
+
 
 Clone or download the repo to a folder, and from inside that folder run from terminal:
 
