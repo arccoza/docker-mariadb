@@ -22,8 +22,8 @@ fi
 
 if [ ! -z "$MYSQL_USER" -a ! -z "$MYSQL_PASSWORD" -a ! -z "$MYSQL_DATABASE" ]; then
 	echo "=> Creating $MYSQL_USER and granting privileges on $MYSQL_DATABASE."
-	mysql -uroot -e "CREATE USER '"$MYSQL_USER"'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
-	mysql -uroot -e "GRANT ALL PRIVILEGES ON '"$MYSQL_DATABASE"'.* TO '$MYSQL_USER'@'%' WITH GRANT OPTION;"
+	mysql -uroot -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
+	mysql -uroot -e "GRANT ALL PRIVILEGES ON '$MYSQL_DATABASE'.* TO '$MYSQL_USER'@'%' WITH GRANT OPTION;"
 fi
 
 echo "=> Done!"
