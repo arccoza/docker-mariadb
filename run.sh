@@ -1,7 +1,12 @@
 #!/bin/bash
 
 # Change bind address to 0.0.0.0
-sed -i -r 's/bind-address.*$/bind-address = 0.0.0.0/' /etc/mysql/my.cnf
+# sed -i -r 's/bind-address.*$/bind-address = 0.0.0.0/' /etc/mysql/my.cnf
+
+# comment out a few problematic configuration values
+# don't reverse lookup hostnames, they are usually another container
+sed -Ei 's/^(bind-address|log)/#&/' /etc/mysql/my.cnf && echo 'skip-host-cache\nskip-name-resolve' | awk '{ print } $1 == "[mysqld]" && c == 0 { c = 1; system("cat") }' /etc/mysql/my.cnf > /tmp/my.cnf && mv /tmp/my.cnf /etc/mysql/my.cnf
+
 # Change the innodb_buffer_pool_size (default is 256M, INNODB_BUFFER_POOL_SIZE default is 128M).
 sed -i -e 's/^innodb_buffer_pool_size\s*=.*/innodb_buffer_pool_size = '$INNODB_BUFFER_POOL_SIZE'/' /etc/mysql/my.cnf
 
