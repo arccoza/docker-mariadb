@@ -18,9 +18,12 @@ if [ ! -d $VOLUME_HOME/mysql ]; then
 	echo "=> Installing MariaDB ..."
 	mysql_install_db > /dev/null 2>&1
 	echo "=> Done!"  
-	/mysql_config_users.sh
 else
 	echo "=> Using an existing volume of MariaDB"
 fi
 
+# Config the MariaDB users.
+/mysql_config_users.sh
+
+echo "=> Starting MariaDB..."
 exec mysqld
