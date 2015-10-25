@@ -40,20 +40,20 @@ if [ ! -z "$MYSQL_USER" -a ! -z "$MYSQL_PASSWORD" -a ! -z "$MYSQL_DATABASE" ]; t
 	while [[ RET -ne 0 ]]; do
 		echo "=> Waiting for confirmation of MariaDB service startup..."
 		sleep 5
-		echo "$MYSQL_ROOT_PASSWORD" | mysql -uroot -p -e "status" > /dev/null 2>&1
+		mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "status" > /dev/null 2>&1
 		RET=$?
 	done
 
 	# Add the MYSQL_DATABASE user if it exists and the user vars are set.
 	if [ ! -z "$MYSQL_USER" -a ! -z "$MYSQL_PASSWORD" -a ! -z "$MYSQL_DATABASE" ]; then
 		echo "=> Creating $MYSQL_USER and granting privileges on $MYSQL_DATABASE."
-		echo "$MYSQL_ROOT_PASSWORD" | mysql -uroot -p -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
-		echo "$MYSQL_ROOT_PASSWORD" | mysql -uroot -p -e "GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'%' WITH GRANT OPTION;"
+		mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
+		mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'%' WITH GRANT OPTION;"
 	fi
 
 	echo "=> Done!"
 
 	# Stop the daemon.
-	echo "$MYSQL_ROOT_PASSWORD" | mysqladmin -uroot shutdown -p
+	mysqladmin -uroot shutdown -p"$MYSQL_ROOT_PASSWORD"
 	echo "=> mysqld stopped."
 fi
