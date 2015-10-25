@@ -4,7 +4,7 @@ A simple, flexible Docker image for MariaDB 10.0
 ## Create the image
 Pull the image from Docker Hub:
 ```
-docker pull arccoza/mariadb
+$ docker pull arccoza/mariadb
 ```
 
 or
@@ -29,11 +29,11 @@ $ docker run -d --name mariadb \
              -e "MYSQL_DATABASE=appdb" \
              -e "MYSQL_USER=appuser" \
              -e "MYSQL_PASSWORD=another password" \
-             -e "INNODB_BUFFER_POOL_SIZE=128M"
+             -e "INNODB_BUFFER_POOL_SIZE=128M" \
              arccoza/mariadb
 ```
 
-###Environment variables
+### Environment variables
 The variables:
 ```
 MYSQL_ROOT_PASSWORD
